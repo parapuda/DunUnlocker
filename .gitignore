@@ -3,6 +3,7 @@
 .kotlin/
 build/
 local.properties
+.local/
 
 **/build/
 **/release/

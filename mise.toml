@@ -1,0 +1,26 @@
+[tools]
+java = "temurin-21.0.12+8.0.LTS"
+
+[env]
+ANDROID_HOME = "{{config_root}}/.local/android-sdk"
+_.path = ["{{config_root}}/.local/android-sdk/platform-tools", "{{config_root}}/.local/android-sdk/cmdline-tools/latest/bin"]
+
+[tasks.setup]
+description = "Install the isolated Android SDK and hidden API jar (Linux x86_64)"
+run = "bash scripts/setup-dev.sh"
+
+[tasks.build]
+description = "Build the debug APK"
+run = "./gradlew assembleDebug"
+
+[tasks.test]
+description = "Run the existing instrumentation suite on a connected device or emulator"
+run = "./gradlew connectedDebugAndroidTest"
+
+[tasks.lint]
+description = "Run Android lint"
+run = "./gradlew lintDebug"
+
+[tasks.check]
+description = "Build the debug APK, lint, and device-test APK (no device required)"
+run = "./gradlew assembleDebug lintDebug assembleDebugAndroidTest"
