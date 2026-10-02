@@ -43,8 +43,9 @@ class ApnManager(
 
     private val sub: ISub
         get() = ISub.Stub.asInterface(
-            TelephonyFrameworkInitializer
-                .getTelephonyServiceManager()
+            requireNotNull(TelephonyFrameworkInitializer.getTelephonyServiceManager()) {
+                "Telephony service manager is unavailable"
+            }
                 .subscriptionServiceRegisterer
                 .get()?.let {
                     ShizukuBinderWrapper(
